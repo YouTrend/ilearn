@@ -1,0 +1,24 @@
+<!--       <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>">
+          <ul>
+            <li>
+              <%= value %>
+            </li>
+          </ul>
+        </div>
+      <% end %> -->
+ <div style="margin-top: 1rem;">
+	 <% flash.each do |key, value| %>
+
+	 	<% if flash[:alert] %>
+		  <div class="alert alert-warning" ><%= flash[:alert] %></div>  
+		<% elsif  flash[:error] %>   
+			<div class="alert alert-danger" ><%= flash[:error] %></div>  
+		<% end %>
+
+	<% end %> 
+ <div>	
+     
+
+
+
