@@ -10,7 +10,7 @@
       <div class="col-lg-6">
           <div class="panel panel-default">
               <div class="panel-heading">
-                   新增學生
+                   學生資料
               </div>
               <!-- /.panel-heading -->
               <div class="panel-body">
@@ -41,9 +41,21 @@
                     <div class="form-group">
                       <%= f.label :grade, "學生年級" %>
                       <%= f.text_field :grade, class: "form-control"  %>
-                    </div>                                            
-   
+                    </div>           
+
+                    <div class="form-group">
+                      <%= f.label :courses, "就讀班級" %>
                     
+                      <%= f.collection_check_boxes(:course_ids, Course.all, :id, :name) do |b| %>
+                        <div class="checkbox">
+                          <%= b.label do%>
+                           <%=b.check_box + b.text%>
+                          <%end%>
+                        </div>  
+                      <% end %>                       
+                      </div>                                      
+                    </div>     
+
                   </fieldset> 
                   <%= link_to "儲存", "", class: "btn btn-lg btn-success btn-block", onclick: "$('form').submit()" %>
                 <% end %>
@@ -55,6 +67,7 @@
           </div>
           <!-- /.panel -->
       </div>
+
       <!-- /.col-lg-12 -->
     </div>
 

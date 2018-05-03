@@ -7,6 +7,13 @@ class CoursesController < ApplicationController
 	  @course = Course.new
 	end
 
+	def edit
+	  @course = Course.find(params[:id])
+	  @events = Event.all
+	  @event = Event.new
+	  @students = @course.students.page(params[:page]).per(20)	  
+	end	
+
 	def create
 	  @course = Course.new(course_params)
 

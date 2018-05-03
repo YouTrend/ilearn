@@ -7,40 +7,44 @@
     </div>
     <!-- /.row -->
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-6">
           <div class="panel panel-default">
               <div class="panel-heading">
                    新增班級
               </div>
               <!-- /.panel-heading -->
               <div class="panel-body">
-                <%= form_for @course, url: courses_path do |f| %>
-                  <fieldset>
-                    <div class="form-group">
-                      <%= f.label :name, "班級名稱" %>
-                      <%= f.text_field :name, class: "form-control"  %>
-                      <%= f.label :name, "選擇上課時間" %>
-                      <>
-                      <%= radio_button_tag(:age, "child") %>
-                      <%= label_tag(:age_child, "I am younger than 21") %>
-                      <%= radio_button_tag(:age, "adult") %>
-                      <%= label_tag(:age_adult, "I'm over 21") %>
+                 <%= form_for @course, url: courses_path do |f| %>
 
-                      <div class="card-body">
-                        <%= month_calendar events: @events do |date, events| %>
-                          <%= date %>
+                    <fieldset>
+                      <div class="form-group">
+                        <%= f.label :name, "班級名稱" %>
+                        <%= f.text_field :name, class: "form-control"  %>
+<!--                         <%= f.label :name, "選擇上課時間" %>
+                        <>
+                        <%= radio_button_tag(:age, "child") %>
+                        <%= label_tag(:age_child, "I am younger than 21") %>
+                        <%= radio_button_tag(:age, "adult") %>
+                        <%= label_tag(:age_adult, "I'm over 21") %> -->
 
-                          <% events.each do |event| %>
-                            <div
-                              <%= event.name %>
-                            </div>
-                          <% end %>
-                        <% end %>
-                      </div>                   
-                    </div>             
-                  </fieldset> 
-                  <%= link_to "儲存", "", class: "btn btn-lg btn-success btn-block", onclick: "$('form').submit()" %>
-                <% end %>
+                  
+                      </div>             
+                    </fieldset> 
+                    <%= link_to "儲存", "", class: "btn btn-lg btn-success btn-block", onclick: "$('form').submit()" %>
+                  <% end %>  
+<!--                 <div class="col-lg-6">
+                  <div class="card-body">
+                    <%= month_calendar events: @events do |date, events| %>
+                      <%= date %>
+
+                      <% events.each do |event| %>
+                        <div
+                          <%= event.name %>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  </div>                   
+                </div> -->
                 <div class="text-center"> 
                   <%= render 'layouts/messages' %>
                 </div>
@@ -49,6 +53,8 @@
           </div>
           <!-- /.panel -->
       </div>
+
+
       <!-- /.col-lg-12 -->
     </div>
 

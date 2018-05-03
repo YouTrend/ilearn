@@ -10,11 +10,11 @@
       <div class="col-lg-6">
           <div class="panel panel-default">
               <div class="panel-heading">
-                   修改學生
+                   學生資料
               </div>
               <!-- /.panel-heading -->
               <div class="panel-body">
-                <%= form_for @student, url: student_path(@student) do |f| %>
+                <%= form_for @student, url: student_path(@student), method: :patch do |f| %>
                   <fieldset>
                     <div class="form-group">
                       <%= f.label :name, "學生姓名" %>
@@ -43,7 +43,19 @@
                       <%= f.text_field :grade, class: "form-control"  %>
                     </div>                                            
    
+                    <div class="form-group">
+                      <%= f.label :courses, "就讀班級" %>
                     
+                      <%= f.collection_check_boxes(:course_ids, Course.all, :id, :name) do |b| %>
+                        <div class="checkbox">
+                          <%= b.label do%>
+                           <%=b.check_box + b.text%>
+                          <%end%>
+                        </div>  
+                      <% end %>                       
+                      </div>                                      
+                    </div> 
+                                        
                   </fieldset> 
                   <%= link_to "儲存", "", class: "btn btn-lg btn-success btn-block", onclick: "$('form').submit()" %>
                 <% end %>

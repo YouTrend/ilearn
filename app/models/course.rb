@@ -1,6 +1,6 @@
 class Course < ApplicationRecord
 
-	def index 
-		@courses = Course.all 
-	end	
+	has_many :course_students
+	has_many :students, through: :course_students
+
 end

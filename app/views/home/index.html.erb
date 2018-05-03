@@ -96,7 +96,7 @@
                     </div>
                 </div>
             </div>
-            
+
              <!-- /.row -->
             <div class="row">
                 <div class="col-lg-8">
@@ -147,7 +147,7 @@
                             <div class="list-group">
 
                               <% @courses.each do |c| %>
-                                <a href="#" class="list-group-item">
+                                <a href="/courses/<%= c.id %>/edit" class="list-group-item">
                                     <i class="fa fa-comment fa-fw"></i> <%= c.name %>
 <!--                                     <span class="pull-right text-muted small"><em>4 minutes ago</em>
                                     </span> -->

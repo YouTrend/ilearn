@@ -14,6 +14,7 @@ class StudentsController < ApplicationController
 
 	def new
 	  @student = Student.new
+	  @courses = Course.all
 	end
 
 	def create
@@ -54,6 +55,6 @@ class StudentsController < ApplicationController
 	private
 
 	def student_params
-		params.require(:student).permit(:afts_id, :card_id, :school, :grade, :name)
+		params.require(:student).permit(:afts_id, :card_id, :school, :grade, :name, :course_ids => [])
 	end	
 end
