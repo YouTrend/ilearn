@@ -7,57 +7,85 @@
     </div>
     <!-- /.row -->
     <div class="row">
-      <div class="col-lg-6">
-          <div class="panel panel-default">
-              <div class="panel-heading">
-                   新增班級
-              </div>
-              <!-- /.panel-heading -->
-              <div class="panel-body">
-                 <%= form_for @course, url: courses_path do |f| %>
-
-                    <fieldset>
-                      <div class="form-group">
-                        <%= f.label :name, "班級名稱" %>
-                        <%= f.text_field :name, class: "form-control"  %>
-<!--                         <%= f.label :name, "選擇上課時間" %>
-                        <>
-                        <%= radio_button_tag(:age, "child") %>
-                        <%= label_tag(:age_child, "I am younger than 21") %>
-                        <%= radio_button_tag(:age, "adult") %>
-                        <%= label_tag(:age_adult, "I'm over 21") %> -->
-
-                  
-                      </div>             
-                    </fieldset> 
-                    <%= link_to "儲存", "", class: "btn btn-lg btn-success btn-block", onclick: "$('form').submit()" %>
-                  <% end %>  
-<!--                 <div class="col-lg-6">
-                  <div class="card-body">
-                    <%= month_calendar events: @events do |date, events| %>
-                      <%= date %>
-
-                      <% events.each do |event| %>
-                        <div
-                          <%= event.name %>
-                        </div>
-                      <% end %>
-                    <% end %>
-                  </div>                   
-                </div> -->
-                <div class="text-center"> 
-                  <%= render 'layouts/messages' %>
-                </div>
-              </div>
-              <!-- /.panel-body -->
-          </div>
-          <!-- /.panel -->
+      <div class="col-lg-7">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                 新增班級
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+               <%= form_for @course, url: courses_path do |f| %>
+                <fieldset>
+                  <div class="form-group">
+                    <%= f.label :name, "班級名稱" %>
+                    <%= f.text_field :name, class: "form-control"  %>        
+                  </div>   
+                </fieldset>  
+                <% end %>
+                <%= link_to "確定", "", class: "btn btn-lg btn-success btn-block", onclick: "$('form').submit()" %>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
       </div>
-
-
-      <!-- /.col-lg-12 -->
+      <!-- /.col-lg-7 -->
+      <div class="col-lg-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                 學生清單
+            </div>          
+            <div class="panel-body">
+              <div class="form-group input-group">
+                  <input type="text" class="form-control" placeholder="學生姓名">
+                  <span class="input-group-btn">
+                      <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
+                      </button>
+                  </span>
+              </div>
+            </div>
+        </div>       
+      </div>       
     </div>
 
-</div>
+<div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="panel-info">
+      <div class="panel-heading">
+          請選擇上課時間
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>         
+      </div>
+      <div class="panel-body" style="min-height: 300px">
+        <div class='col-md-5'>
+            <div class="form-group">
+              <div class='input-group date' id='datetimepicker'>
+                  <input type='text' class="form-control" />
+                  <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-time"></span>
+                  </span>
+              </div>  
+            </div>        
+        </div>
+        <div class='col-md-1' style="padding: 0px; width: 1%;">-</div>
+        <div class='col-md-5'>
+            <div class="form-group">
+              <div class='input-group date' id='datetimepicker2'>
+                  <input type='text' class="form-control" />
+                  <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-time"></span>
+                  </span>
+              </div>  
+            </div> 
+        </div>
+      </div>
+      <div class="panel-footer">
+        <button id="buttonAdd" type="button" class="btn btn-success">確定</button>
+        <button id="buttonCancel" type="button" class="btn btn-warning">取消</button>
+      </div>
+  </div>
+
+</div>  
+
+
 
 

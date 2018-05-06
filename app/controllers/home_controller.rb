@@ -4,5 +4,6 @@ class HomeController < ApplicationController
 	def index
 	  @events = Event.all
 	  @courses = Course.all
+	  @students = Student.all
 	end	
 end

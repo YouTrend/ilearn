@@ -15,7 +15,23 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap_sb_admin_base_v2
+//= require bootstrap-modal
+//= require bootstrap-modalmanager
+//= require moment
+//= require bootstrap-datetimepicker
+
 //= require common
+
 
 //= require_tree .
 
+
+$(document).on("turbolinks:load", function(){
+	//$(".day").css("cursor", "pointer")
+
+	// $(".day").css("cursor", "pointer").hover(function(){
+	//     $(this).css("background-color", "pink");
+	//     }, function(){
+	//     $(this).css("background-color", "#f9f9f9");
+	// });	
+});

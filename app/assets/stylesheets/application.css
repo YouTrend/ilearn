@@ -15,4 +15,16 @@
  *= require font-awesome
  *= require bootstrap_sb_admin_base_v2
  *= require simple_calendar
+ *= require bootstrap-modal-bs3patch
+ *= require bootstrap-modal
+ *= require bootstrap-datetimepicker
+ *= require_tree .
  */
+
+/*.day:hover {
+    background-color: #5cb85c !important;
+}*/
+
+.simple-calendar .day{
+	padding: 0px;
+}

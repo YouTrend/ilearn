@@ -12,11 +12,11 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-comments fa-5x"></i>
+                                    <i class="fa fa-users fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
-                                    <div>New Comments!</div>
+                                    <div class="huge"><%= @students.count %></div>
+                                    <div>就讀中學生</div>
                                 </div>
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+<!--                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-green">
                         <div class="panel-heading">
                             <div class="row">
@@ -94,7 +94,7 @@
                             </div>
                         </a>
                     </div>
-                </div>
+                </div> -->
             </div>
 
              <!-- /.row -->
@@ -129,9 +129,12 @@
                             <%= date %>
 
                             <% events.each do |event| %>
-                              <div>
+<!--                               <div>
                                 <%= event.name %>
-                              </div>
+                              </div> -->
+                              <div class="list-group-item" style="background-color: pink;">
+                                <%= event.name %>
+                              </adiv>                              
                             <% end %>
                           <% end %>                            
                         </div> 
@@ -141,14 +144,48 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-bell fa-fw"></i> 所有班級
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-chevron-down"></i>
+                                </button>
+                                <ul class="dropdown-menu slidedown">
+                                    <li>
+                                        <a href="/courses/new">
+                                            <i class="fa fa-plus fa-fw"></i> 新增班級
+                                        </a>
+                                    </li>
+<!--                                     <li>
+                                        <a href="#">
+                                            <i class="fa fa-check-circle fa-fw"></i> Available
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-times fa-fw"></i> Busy
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-clock-o fa-fw"></i> Away
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-sign-out fa-fw"></i> Sign Out
+                                        </a>
+                                    </li> -->
+                                </ul>
+                            </div>
                         </div>
+
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="list-group">
 
                               <% @courses.each do |c| %>
-                                <a href="/courses/<%= c.id %>/edit" class="list-group-item">
-                                    <i class="fa fa-comment fa-fw"></i> <%= c.name %>
+                                <a href="/courses/<%= c.id %>" class="list-group-item">
+                                    <i class="fa fa-bookmark fa-fw"></i> <%= c.name %>
 <!--                                     <span class="pull-right text-muted small"><em>4 minutes ago</em>
                                     </span> -->
                                 </a>
