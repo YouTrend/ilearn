@@ -57,7 +57,7 @@
                     </div>     
 
                   </fieldset> 
-                  <%= link_to "確定", "", class: "btn btn-lg btn-success btn-block", onclick: "$('form').submit()" %>
+                  <%= link_to "確定", "", class: "btn btn-lg btn-success btn-block", onclick: "$('form').submit();return false" %>
                 <% end %>
                 <div class="text-center"> 
                   <%= render 'layouts/messages' %>

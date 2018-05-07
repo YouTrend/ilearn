@@ -1,0 +1,18 @@
+@import "font-awesome";
+
+
+@import "bootstrap_sb_admin_base_v2";
+@import "bootstrap-modal-bs3patch";
+@import "bootstrap-modal";
+@import "bootstrap-datetimepicker";
+
+@import "simple_calendar";
+
+/*.day:hover {
+    background-color: #5cb85c !important;
+}*/
+
+.simple-calendar .day{
+	padding: 0px;
+}
+

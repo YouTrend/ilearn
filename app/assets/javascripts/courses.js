@@ -3,18 +3,19 @@
 $(document).on("turbolinks:load", function(){
 
 	var $addEventModal = $("#addEventModal");
+	$addEventModal.find("#datetimepicker, #datetimepicker2").datetimepicker({
+	        format: 'HH:mm',
+	});		
 
 	$("#courses_new .day .panel-footer a").click(function(){
 
 		debugger
+		clear();
+
 		var self = this;
 		var selectedDate = moment($(this).parent().parent().find(".panel-heading").text().trim());
 
 		$addEventModal.modal();
-
-		$addEventModal.find("#datetimepicker, #datetimepicker2").datetimepicker({
-	        format: 'HH:mm',
-	    });			
 
 	    $addEventModal.find("#buttonAdd").click(function(){
 
@@ -35,8 +36,13 @@ $(document).on("turbolinks:load", function(){
 
     	});   
 
-    	return false;
 
+	});
+
+	$("#courses_new .day .start-end-time").click(function(){
+		clear();
+
+		$addEventModal.modal();
 	});
 
     $addEventModal.find("#buttonCancel").click(function(){
@@ -44,8 +50,8 @@ $(document).on("turbolinks:load", function(){
     	$addEventModal.modal("hide");
     });
 
-	$addEventModal.on('hidden.bs.modal', function (e) {
+	function clear(){
 		$addEventModal.find("#datetimepicker").data('DateTimePicker').clear();
-		$addEventModal.find("#datetimepicker2").data('DateTimePicker').clear();
-	})
+		$addEventModal.find("#datetimepicker2").data('DateTimePicker').clear();		
+	}
 });

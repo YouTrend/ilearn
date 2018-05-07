@@ -2,10 +2,11 @@ class StudentsController < ApplicationController
 	before_action :authenticate_user!	
 
 	def index
-	  #@students = Student.all
-      @students = Student.page(params[:page]).per(20)
+      @students = Student.studying.page(params[:page]).per(20)
+	end
 
-	  #@students = User.where( :role => 'student')
+	def others
+      @students = Student.others.page(params[:page]).per(20)
 	end
 
 	def show

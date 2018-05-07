@@ -2,14 +2,14 @@ class CoursesController < ApplicationController
 	before_action :authenticate_user!
 
 	def new
-	  @events = Event.all
+	  @events = []
 	  @event = Event.new
 	  @course = Course.new
 	end
 
 	def show
 	  @course = Course.find(params[:id])
-	  @events = Event.all
+	  @events = Event.where(course_id: @course.id)
 	  @event = Event.new
 	  @students = @course.students.page(params[:page]).per(20)	  
 	end		

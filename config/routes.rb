@@ -10,7 +10,14 @@ Rails.application.routes.draw do
   end
 
   resources :departments
-  resources :students
+
+  resources :students do
+  	collection do
+  		get :others
+  	end
+  	
+  	
+  end
   resources :events
 
   root "home#index"

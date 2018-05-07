@@ -12,7 +12,7 @@
                 <div class="panel-heading">
                     <%=@course.name%>
                         <div class="pull-right">
-<!--                             <a href="/courses/<%= @course.id %>/edit">
+                            <!--                             <a href="/courses/<%= @course.id %>/edit">
                                 <button type="button" class="btn btn-primary btn-xs">編輯</button>
                             </a> -->
                             <div class="btn-group">
@@ -30,14 +30,14 @@
                 <div class="panel-body">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#home" data-toggle="tab">總覽</a>
+                        <li class="active"><a href="#home" data-toggle="tab">課表</a>
                         </li>
                         <li><a href="#profile" data-toggle="tab">就讀中學生</a>
                         </li>
-                        <li><a href="#messages" data-toggle="tab">Messages</a>
+<!--                         <li><a href="#messages" data-toggle="tab">Messages</a>
                         </li>
                         <li><a href="#settings" data-toggle="tab">Settings</a>
-                        </li>
+                        </li> -->
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
@@ -50,15 +50,17 @@
                                         </div>
                                         <div class="panel-body">
                                             <% events.each do |event| %>
-                                                <div class="list-group-item" style="background-color: pink;">
-                                                    <%= event.start_time.strftime("%R")%> - <%= event.end_time.strftime("%R") %>
-                                                </div>
+                                                <%= link_to new_courses_event_path(@course), remote: true, class:"btn btn-block btn-social btn-vk start-end-time" do %>
+                                                    </i> <%= event.start_time.strftime("%R")%> - <%= event.end_time.strftime("%R") %>
                                                 <% end %>
+
+
+                                            <% end %>
                                         </div>
                                         <div class="panel-footer">
                                             <%= link_to new_courses_event_path(@course), remote: true do %>
                                                 <i class="fa fa-plus-circle fa-fw" style="width: 100%; text-align: right;"></i>
-                                            <% end %>                                            
+                                            <% end %>
                                         </div>
                                     </div>
                                     <% end %>
@@ -140,5 +142,4 @@
         <!-- /.col-lg-12 -->
     </div>
 </div>
-
 <%= render 'courses/datepicker' %>
