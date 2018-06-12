@@ -1,11 +1,32 @@
 class CoursesController < ApplicationController
+	include RailsTemporaryData::ControllerHelpers
 	before_action :authenticate_user!
 
 	def new
-	  @events = []
-	  @event = Event.new
+	  # @events = []
+	  # @event = Event.new
 	  @course = Course.new
-	end
+	  @students = []
+	  @title = "新增班級"
+	  # @event_expanded = false
+	  
+	  # if session[:events]
+	  # 	  @course.name = session[:name]
+
+	  # 	  session[:events].each do|e|
+	  # 	  	event = Event.new
+	  # 	    event.start_time = e["start_time"]
+	  # 	    event.end_time = e["end_time"]	  
+
+	  # 	    @events << event
+	  # 	  end	
+
+	  # 	  @course.events = @events
+	  #     @event_expanded = true
+	  # end	
+
+
+	end	
 
 	def show
 	  @course = Course.find(params[:id])
@@ -16,34 +37,25 @@ class CoursesController < ApplicationController
 
 	def edit
 	  @course = Course.find(params[:id])
-	  @events = Event.all
-	  @event = Event.new
-	  @students = @course.students.page(params[:page]).per(20)	  
+	  @students = @course.students
+	  @title = "編輯班級"
 	end	
 
 	def update
 	  @course = Course.find(params[:id])
 
-	  events = []
+	  students = []
 
-	  params["events"].each do |e|
-		event = Event.new(event_params(e))
-		event.name = @course.name
-		event.course = @course
+	  params["students"].each do |s|
+		student = Student.find(s[:student][:id])
 
-		events <<  event
-	  end
-
-	  ActiveRecord::Base.transaction do
-	  	# Course.find_by(id: @course.id)
-
-	  	@course.save!
-	  	events.each do |event|
-	  		event.save!
-	  	end	
+		students <<  student
 	  end	  
 
-	  flash[:notice] = '編輯班級成功'
+	  @course.students = students
+
+	  @course.save!
+
 	  redirect_to course_path(@course)
 	  # if(@course.save)
 		 #  flash[:notice] = '編輯班級成功'
@@ -59,20 +71,20 @@ class CoursesController < ApplicationController
 	def create
 	  @course = Course.new(course_params)
 
-	  params["events"].each do |event|
-	    if event["start_time"] != "" || event["end_time"] != ""
-	      Event.create(event_params(event))
-	    end
+	  students = []
+
+	  params["students"].each do |s|
+		student = Student.find(s[:student][:id])
+
+		students <<  student
 	  end
 
-	  if(@course.save)
-		  flash[:notice] = '新增班級成功'
-		  redirect_to course_path(@course)
+	  @course.students = students
 
-      else
-		  flash[:error] = @course.errors.full_messages
-		  render :new
-	  end	
+	  @course.save!  
+
+	  redirect_to course_path(@course)
+
 
 	end	
 
@@ -84,7 +96,7 @@ class CoursesController < ApplicationController
 	private
 
 	def course_params
-		params.require(:course).permit(:name)
+		params.require(:course).permit(:name, :description)
 	end		
 
 	def event_params(event_params)

@@ -35,6 +35,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'devise'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 gem 'bootstrap_sb_admin_base_v2'
 gem 'bootstrap-modal-rails'
@@ -47,6 +48,10 @@ gem 'httparty'
 gem "active_link_to"
 gem 'kaminari'
 gem "simple_calendar", "~> 2.0"
+
+gem 'rails_temporary_data'
+gem 'uuidtools'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

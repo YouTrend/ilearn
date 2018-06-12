@@ -20,14 +20,14 @@
                             <th class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 228px;">就讀學校</th>
                             <th class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 178px;">學生年級</th>
                             <th class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 134px;">最後更新日期</th>
-                            <th class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 134px;"></th>
+                            <th class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 134px;"></th>                            
                         </tr>
                     </thead>
                     <tbody>
                         <% @students.each do |student| %>
                             <tr>
                                 <td>
-                                    <%= student.name  %>
+                                    <%= link_to student.name, edit_student_path(student) %>
                                 </td>
                                 <td>
                                     <%= student.afts_id  %>
@@ -41,11 +41,16 @@
                                 <td>
                                     <%= student.updated_at.to_s(:db)  %>
                                 </td>
+
                                 <td>
-                                    <%= link_to '修改', edit_student_path(student), class: "btn btn-success" %>
-                                </td>
+                                    <% if @destroy_courses_flag %>
+                                        <%= link_to "退班", destroy_courses_student_path(student), method: :delete, class: "btn btn-warning btn-sm", data: {confirm: '移除所有班級，並加入潛在學生，是否繼續？'} %>
+                                    <% else %>    
+                                        <%= link_to "刪除", student_path(student), method: :delete, class: "btn btn-danger btn-sm", data: {confirm: '移除後將無法復原，確定刪除？'}%>                                   
+                                    <% end %>
+                                </td>                            
                             </tr>
-                            <% end %>
+                        <% end %>
                     </tbody>
                 </table>
             </div>

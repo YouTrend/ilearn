@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student: one
+  event: one
+  start_time: 2018-05-12 14:31:54
+  end_time: 2018-05-12 14:31:54
+
+two:
+  student: two
+  event: two
+  start_time: 2018-05-12 14:31:54
+  end_time: 2018-05-12 14:31:54

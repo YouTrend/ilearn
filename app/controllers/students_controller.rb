@@ -3,10 +3,23 @@ class StudentsController < ApplicationController
 
 	def index
       @students = Student.studying.page(params[:page]).per(20)
+      @destroy_courses_flag = true
 	end
+
+	def search_auto_complete
+      render json: Student.term_for(params[:term])
+	end
+
+	def search
+
+	  name = params[:name];
+	  render json: Student.where("name like ?", "%#{name}%")
+
+	end	
 
 	def others
       @students = Student.others.page(params[:page]).per(20)
+      @destroy_courses_flag = false
 	end
 
 	def show
@@ -52,6 +65,25 @@ class StudentsController < ApplicationController
 
 	end	
 
+	def destroy_courses
+	  @student = Student.find(params[:id])
+	  @student.courses.destroy_all
+
+	  redirect_to students_path
+	end			
+
+	def destroy
+	  @student = Student.find(params[:id])
+
+	  ActiveRecord::Base.transaction do
+	    @student.courses.destroy_all
+	    @student.destroy
+	  end
+
+
+	  redirect_to others_students_url		
+		
+	end
 
 	private
 
