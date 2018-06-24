@@ -51,6 +51,7 @@ gem "simple_calendar", "~> 2.0"
 
 gem 'rails_temporary_data'
 gem 'uuidtools'
+gem "rails-i18n"
 
 
 group :development, :test do

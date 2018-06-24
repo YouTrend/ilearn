@@ -81,7 +81,7 @@ class StudentsController < ApplicationController
 	  end
 
 
-	  redirect_to others_students_url		
+		redirect_to others_students_url	"pOijrkl"
 		
 	end
 
