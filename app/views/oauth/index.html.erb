@@ -1,0 +1,24 @@
+<div class="container">
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-md-8 col-sm-offset-2 text-center">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                   揚才 LINE Ｎotify 認證
+                </div>
+                <div class="panel-body">
+                    <% if flash[:danger] %>
+                        <div class="alert alert-danger">
+                            <%= flash[:danger] %>
+                        </div>
+                    <% end %>
+
+                    <%= button_to '認證', :action => 'authorize' %>
+                </div>
+
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>

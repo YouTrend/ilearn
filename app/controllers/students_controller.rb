@@ -28,12 +28,12 @@ class StudentsController < ApplicationController
 
 	def new
 	  @student = Student.new
-	  @courses = Course.all
+		@courses = Course.all
+		2.times { @student.contacts.build }
 	end
 
 	def create
-	  @student = Student.new(student_params)
-
+		@student = Student.new(student_params)
 	  # @user = User.new(:email => 'test@example.com', :password => 'password', :password_confirmation => 'password', :name => params[:user][:name])
 
 	  # @student.user = @user
@@ -49,7 +49,8 @@ class StudentsController < ApplicationController
 	end	
 
 	def edit
-	  @student = Student.find(params[:id])
+		@student = Student.find(params[:id])
+		@contacts = Student.first.contacts.all
 	end
 
 	def update
@@ -88,6 +89,6 @@ class StudentsController < ApplicationController
 	private
 
 	def student_params
-		params.require(:student).permit(:afts_id, :card_id, :school, :grade, :name, :course_ids => [])
+		params.require(:student).permit(:afts_id, :card_id, :school, :grade, :name, :course_ids => [], :contacts_attributes => [:id, :name, :phone, :notify_demand, :line_token])
 	end	
 end

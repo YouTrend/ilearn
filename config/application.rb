@@ -9,6 +9,7 @@ Bundler.require(*Rails.groups)
 module Ilearn
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+    $liensettings = config_for(:liensettings)
     config.load_defaults 5.1
     config.i18n.default_locale = "zh-TW"
     config.time_zone = "Taipei"

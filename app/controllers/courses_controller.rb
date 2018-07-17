@@ -46,14 +46,15 @@ class CoursesController < ApplicationController
 
 	  students = []
 
-	  params["students"].each do |s|
-		student = Student.find(s[:student][:id])
+		if (!params["students"].nil?)
+			params["students"].each do |s|
+			student = Student.find(s[:student][:id])
 
-		students <<  student
-	  end	  
-
-	  @course.students = students
-
+			students <<  student
+			end
+			@course.students = students
+		end
+		
 	  @course.save!
 
 	  redirect_to course_path(@course)
@@ -72,14 +73,14 @@ class CoursesController < ApplicationController
 	  @course = Course.new(course_params)
 
 	  students = []
+		if (!params["students"].nil?)
+			params["students"].each do |s|
+			student = Student.find(s[:student][:id])
 
-	  params["students"].each do |s|
-		student = Student.find(s[:student][:id])
-
-		students <<  student
-	  end
-
-	  @course.students = students
+			students <<  student
+			end
+			@course.students = students
+		end
 
 	  @course.save!  
 

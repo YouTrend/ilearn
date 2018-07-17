@@ -1,0 +1,15 @@
+
+development:
+  client_id: "HDyhJUZcDQRNRiT76WH79d"
+  client_secret: "1JdpD0OUM7ta9ufbpA1MHozBRr6g60oUPQyhMY8099i"
+  callback: "http://localhost:3000/"
+
+test:
+  client_id: "HDyhJUZcDQRNRiT76WH79d"
+  client_secret: "1JdpD0OUM7ta9ufbpA1MHozBRr6g60oUPQyhMY8099i"
+  callback: "http://localhost:3000/"
+
+production:
+  client_id: "HDyhJUZcDQRNRiT76WH79d"
+  client_secret: "1JdpD0OUM7ta9ufbpA1MHozBRr6g60oUPQyhMY8099i"
+  callback: "http://localhost:3000/"

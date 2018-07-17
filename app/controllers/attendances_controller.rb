@@ -10,7 +10,6 @@ class AttendancesController < ApplicationController
 
 
 		if(@student)
-
 			if (check(@student))
 			
 			end
@@ -24,14 +23,13 @@ class AttendancesController < ApplicationController
 		if (@attendance_by_student.size > 0)
 			@lastAttendance = @attendance_by_student.first
 			if((Time.now - @lastAttendance.start_time) / 60 > 10)
-				if (@lastAttendance.end_time.nil?)
+				if (@lastAttendance.end_time.nil? and (Date.today - @lastAttendance.start_time.to_date).to_i < 1)
 					setFinishClass(student,@lastAttendance)
 				else
 					setStartClass(student)
 				end
 			else
 				flash[:error]  = "打卡失敗，時間過近，上下課時間至少要10分鐘以上。"
-				return false
 			end
 		else
 			setStartClass(student)
@@ -44,7 +42,7 @@ class AttendancesController < ApplicationController
 		@attendance.start_time = Time.now
 		# @attendance.end_time		
 		@attendance.save
-
+		run_line_notify(student)
 	end 
 
 	def setFinishClass (student,attendance)

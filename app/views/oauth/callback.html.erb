@@ -1,0 +1,39 @@
+<div class="container">
+    <!-- /.row -->
+    <div class="row">
+        <div class="col text-center vertical-alignment">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                   揚才 LINE Ｎotify 連動通行碼
+                </div>
+                <div class="panel-body">
+                    <h4><%= @token %></h4>
+                    <input type="button" value="複製" onclick="copyToClipBoard()">
+                
+                </div>
+                <p>連動通行碼請複製後，回傳揚才客服人員</p>
+                </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+<script>
+    function copyToClipBoard() {
+        var items = document.querySelectorAll('h4');
+        var range = document.createRange();
+        range.selectNode(items[0]);
+        window.getSelection().addRange(range);
+            try {
+                // 執行瀏覽器的複製指令，複製上面 copyArea 內選取到的文字
+                var copyStatus = document.execCommand('copy');
+                var msg = copyStatus ? 'copied' : 'failed';
+                // 輸出狀態
+                alert("複製成功");
+            } catch (error) {
+                console.log('Oops!, unable to copy');
+            }
+            // 移除選取
+            window.getSelection().removeAllRanges();
+    }
+</script>

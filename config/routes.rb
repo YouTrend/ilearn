@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   devise_for :users
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
   resources :departments
 
   resources :students do
+    resources :contacts
   	collection do
   		get :others
       get :search_auto_complete
@@ -32,6 +34,21 @@ Rails.application.routes.draw do
 
   resources :events
   resources :attendances
+
+
+  get 'oauth/index'
+
+  post 'oauth/callback'
+
+  post 'oauth/authorize'
+
+  post 'oauth/send_message'
+
+  get 'oauth/authorize' => "oauth#get_authorize"
+
+  get 'oauth/callback' => "oauth#index"
+
+  get 'oauth/send_message' => "oauth#get_send_message"
 
   root "home#index"
 end

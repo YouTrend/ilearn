@@ -27,10 +27,10 @@
                                     <%= attendance.student.name %>
                                 </td>
                                 <td>
-                                    <%= attendance.start_time  %>
+                                    <%= attendance.start_time.strftime("%F %T") %>
                                 </td>
                                 <td>
-                                    <%= attendance.end_time  %>
+                                    <%= attendance.end_time.nil? ? "" : attendance.end_time.strftime("%F %T") %>
                                 </td>                       
                             </tr>
                         <% end %>
