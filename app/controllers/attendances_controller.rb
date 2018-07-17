@@ -19,7 +19,7 @@ class AttendancesController < ApplicationController
 		redirect_to new_attendance_path
 	end 	
 	def check(student)
-		@attendance_by_student = Attendance.where("student_id  = ? ", student.id).order("start_time desc")
+		@attendance_by_student = Attendance.getAttendance(student)
 		if (@attendance_by_student.size > 0)
 			@lastAttendance = @attendance_by_student.first
 			if((Time.now - @lastAttendance.start_time) / 60 > 10)
@@ -42,8 +42,14 @@ class AttendancesController < ApplicationController
 		@attendance.start_time = Time.now
 		# @attendance.end_time		
 		@attendance.save
-		run_line_notify(student)
-	end 
+		#run_line_notify
+		contacts = student.contacts
+		if (!contacts.nil?)
+			contacts.each do |c|
+				if (c.)
+			end
+		end
+	end
 
 	def setFinishClass (student,attendance)
 		attendance.end_time = Time.now

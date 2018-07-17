@@ -58,8 +58,8 @@ class StudentsController < ApplicationController
 	  
 
 	  if(@student.update(student_params))
-		redirect_to students_path
-      else
+			redirect_to students_path
+		else
 		  flash[:error] = @student.errors.full_messages
 		  render :new
 	  end		  

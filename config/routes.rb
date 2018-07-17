@@ -35,20 +35,15 @@ Rails.application.routes.draw do
   resources :events
   resources :attendances
 
-
-  get 'oauth/index'
-
-  post 'oauth/callback'
-
-  post 'oauth/authorize'
-
-  post 'oauth/send_message'
-
-  get 'oauth/authorize' => "oauth#get_authorize"
-
-  get 'oauth/callback' => "oauth#index"
-
-  get 'oauth/send_message' => "oauth#get_send_message"
+  namespace :oauth do
+    get :index
+    post :callback
+    post :authorize
+    post :send_message
+    get '/authorize' => "oauth#get_authorize"
+    get '/callback' => "oauth#index"
+    get '/send_message' => "oauth#get_send_message"
+  end
 
   root "home#index"
 end
