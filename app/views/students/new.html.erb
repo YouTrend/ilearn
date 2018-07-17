@@ -13,13 +13,7 @@
         <%= form_for @student, url: students_path, method: :post do |f| %>
           <%= render "students/edit", f: f %>
         <% end %>
-        <div class="row">
-            <%= link_to "確定", "", class: "btn btn-lg btn-success btn-block", onclick: "$('form').submit();return false" %>
-            <div class="text-center"> 
-              <%= render 'layouts/messages' %>
-            </div>
-        </div>
-        </div>
+      </div>
     </div>
   </div>
 </div>
