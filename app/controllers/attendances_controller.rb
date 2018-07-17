@@ -31,20 +31,20 @@ class AttendancesController < ApplicationController
 	end 	
 	def check(student)
 		@attendance_by_student = Attendance.getAttendance(student)
-		# if (@attendance_by_student.size > 0)
-		# 	@lastAttendance = @attendance_by_student.first
-		# 	if((Time.now - @lastAttendance.start_time) / 60 > 10)
-		# 		if (@lastAttendance.end_time.nil? and (Date.today - @lastAttendance.start_time.to_date).to_i < 1)
-		# 			setFinishClass(student,@lastAttendance)
-		# 		else
-		# 			setStartClass(student)
-		# 		end
-		# 	else
-		# 		flash[:error]  = "打卡失敗，時間過近，上下課時間至少要10分鐘以上。"
-		# 	end
-		# else
+		if (@attendance_by_student.size > 0)
+			@lastAttendance = @attendance_by_student.first
+			if((Time.now - @lastAttendance.start_time) / 60 > 10)
+				if (@lastAttendance.end_time.nil? and (Date.today - @lastAttendance.start_time.to_date).to_i < 1)
+					setFinishClass(student,@lastAttendance)
+				else
+					setStartClass(student)
+				end
+			else
+				flash[:error]  = "打卡失敗，時間過近，上下課時間至少要10分鐘以上。"
+			end
+		else
 			setStartClass(student)
-		# end
+		end
 	end
 	def setStartClass (student)
 		@attendance = Attendance.new
