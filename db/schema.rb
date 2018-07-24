@@ -10,16 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180714044119) do
-
-  create_table "attendances", force: :cascade do |t|
-    t.integer "student_id"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["student_id"], name: "index_attendances_on_student_id"
-  end
+ActiveRecord::Schema.define(version: 20180722052236) do
 
   create_table "contacts", force: :cascade do |t|
     t.string "name"
@@ -31,6 +22,29 @@ ActiveRecord::Schema.define(version: 20180714044119) do
     t.integer "student_id"
     t.string "line_token"
     t.index ["student_id"], name: "index_contacts_on_student_id"
+  end
+
+  create_table "notifies", force: :cascade do |t|
+    t.string "message"
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "notifies_students", id: false, force: :cascade do |t|
+    t.integer "notify_id"
+    t.integer "student_id"
+    t.index ["notify_id"], name: "index_notifies_students_on_notify_id"
+    t.index ["student_id"], name: "index_notifies_students_on_student_id"
+  end
+
+  create_table "attendances", force: :cascade do |t|
+    t.integer "student_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_attendances_on_student_id"
   end
 
   create_table "course_students", force: :cascade do |t|

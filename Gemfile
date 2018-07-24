@@ -53,6 +53,12 @@ gem 'rails_temporary_data'
 gem 'uuidtools'
 gem "rails-i18n"
 gem "oauth2"
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'rest-client'
+gem 'curb', '~> 0.9.3'
+gem 'multipart-post', '~> 2.0'
+gem 'httmultiparty', '~> 0.3.16'
 
 
 group :development, :test do

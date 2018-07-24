@@ -2,6 +2,7 @@ class Student < ApplicationRecord
 
 	has_many :course_students
 	has_many :courses, through: :course_students
+	has_and_belongs_to_many :notifies
 	has_many :contacts
 	accepts_nested_attributes_for :contacts, allow_destroy: true
 	 
