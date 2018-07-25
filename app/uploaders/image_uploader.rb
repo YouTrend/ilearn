@@ -15,13 +15,17 @@ class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   version :thumb do
-    process :convert_file_to_png => [320, 480]
+    process :convert_file_to_png => [160, 240]
   end
 
   process :convert_file_to_png => [640, 960]
 
   def extension_white_list
     %w(jpg jpeg png)
+  end
+
+  def filename
+    Time.now.to_i.to_s + ".png"
   end
 
   private

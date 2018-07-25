@@ -54,11 +54,6 @@ class NotifiesController < ApplicationController
 
   end	
   
-  class SomeClient
-    include HTTMultiParty
-    base_uri API_SITE
-    
-  end
   
   def send_message (token, message, notify)
 		res = msg(token, message ,notify)
