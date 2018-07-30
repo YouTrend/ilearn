@@ -12,6 +12,18 @@
 
 ActiveRecord::Schema.define(version: 20180722052236) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "attendances", force: :cascade do |t|
+    t.integer "student_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_attendances_on_student_id"
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string "name"
     t.string "phone"
@@ -22,29 +34,6 @@ ActiveRecord::Schema.define(version: 20180722052236) do
     t.integer "student_id"
     t.string "line_token"
     t.index ["student_id"], name: "index_contacts_on_student_id"
-  end
-
-  create_table "notifies", force: :cascade do |t|
-    t.string "message"
-    t.string "image"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "notifies_students", id: false, force: :cascade do |t|
-    t.integer "notify_id"
-    t.integer "student_id"
-    t.index ["notify_id"], name: "index_notifies_students_on_notify_id"
-    t.index ["student_id"], name: "index_notifies_students_on_student_id"
-  end
-
-  create_table "attendances", force: :cascade do |t|
-    t.integer "student_id"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["student_id"], name: "index_attendances_on_student_id"
   end
 
   create_table "course_students", force: :cascade do |t|
@@ -80,6 +69,20 @@ ActiveRecord::Schema.define(version: 20180722052236) do
     t.datetime "updated_at", null: false
     t.integer "course_id"
     t.index ["course_id"], name: "index_events_on_course_id"
+  end
+
+  create_table "notifies", force: :cascade do |t|
+    t.string "message"
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "notifies_students", id: false, force: :cascade do |t|
+    t.integer "notify_id"
+    t.integer "student_id"
+    t.index ["notify_id"], name: "index_notifies_students_on_notify_id"
+    t.index ["student_id"], name: "index_notifies_students_on_student_id"
   end
 
   create_table "students", force: :cascade do |t|
