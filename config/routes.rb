@@ -46,6 +46,8 @@ Rails.application.routes.draw do
     get '/callback' => "oauth#index"
     get '/send_message' => "oauth#get_send_message"
   end
-
+  namespace :helps do
+    get :index
+  end
   root "home#index"
 end
