@@ -48,8 +48,12 @@
             <%= c.text_field :line_token, class: "form-control"  %>
           </div> 
           <div class="form-group">
+                    
             <%= c.label :notify_demand, "ＬＩＮＥ通知" %>
-            <%= c.check_box :notify_demand, class: "form-control"  %>
+            <div class="checkbox">
+              <label></label>
+              <%= c.check_box :notify_demand  %>
+            </div>  
           </div> 
         <% end %>  
       </div>
