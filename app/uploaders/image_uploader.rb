@@ -20,12 +20,12 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   process :convert_file_to_png => [640, 960]
 
-  def extension_white_list
-    %w(jpg jpeg png)
-  end
+  def content_type_whitelist 
+    /image\// 
+  end 
 
   def filename
-    Time.now.to_i.to_s + ".png"
+    Time.now.to_i.to_s + ".png" if !original_filename.nil?
   end
 
   private

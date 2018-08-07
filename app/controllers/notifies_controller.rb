@@ -68,44 +68,37 @@ class NotifiesController < ApplicationController
 	end
 
   def msg(token, message, notify)
-
     url = URI.parse(File.join(API_SITE, 'api/notify'))
-    File.open(notify.image.current_path) do |i|
-      req = Net::HTTP::Post::Multipart.new(
-        url.path, 
-        {"message" => message,"imageFile" => UploadIO.new(i, "image/png", notify.image_identifier)},
-        {"Authorization" => "Bearer #{token}"}
-      )
-   		http = Net::HTTP.new(url.host, url.port)
+    if (!notify.image.current_path.nil?)
+      File.open(notify.image.current_path) do |i|
+        req = Net::HTTP::Post::Multipart.new(
+          url.path, 
+          {"message" => message,"imageFile" => UploadIO.new(i, "image/png", notify.image_identifier)},
+          {"Authorization" => "Bearer #{token}"}
+        )
+        http = Net::HTTP.new(url.host, url.port)
+        http.use_ssl = true
+        http.start { |h|
+          h.request(req)
+        }
+      end
+    else
+      url = URI.parse(File.join(API_SITE, 'api/notify'))
+      req = Net::HTTP::Post.new(url.path)
+      req.content_type = "application/x-www-form-urlencoded"
+      req['Authorization'] = "Bearer #{token}"
+      req.set_form_data({
+        "message" => message
+      })
+
+      http = Net::HTTP.new(url.host, url.port)
       http.use_ssl = true
+
       http.start { |h|
         h.request(req)
       }
+
     end
-
-    # response = SomeClient.post('/api/notify', 
-    #   :headers => { "Authorization" => "Bearer #{token}"},
-    #   :body => {
-    #     :message => message,
-    #     :imageFile => File.open(image)},
-    #     :detect_mime_type => true
-    # )
-  #   url = URI.parse(File.join(API_SITE, 'api/notify'))
-	# 	req = Net::HTTP::Post.new(url.path)
-  #   req.content_type = "multipart/form-data"
-  #   req['Authorization'] = "Bearer #{token}"
-	# 	req.set_form_data({
-  #     "message" => message
-  #   })
-    
-	# 	http = Net::HTTP.new(url.host, url.port)
-	# 	http.use_ssl = true
-	# 	http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-
-	# 	http.start { |h|
-  #     h.request(req)
-  #   }
 	end
   private
     def notify_params
