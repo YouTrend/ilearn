@@ -67,6 +67,15 @@ class AttendancesController < ApplicationController
 	def setFinishClass (student,attendance)
 		attendance.end_time = Time.now
 		attendance.save
+
+		contacts = student.contacts
+		if (!contacts.nil?)
+			contacts.each do |c|
+				if (c.notify_demand and (!c.line_token.nil? and !c.line_token.empty?))
+					send_message(c.line_token, c.name + "您好：您的愛子" + student.name + "已經放課囉！於" + attendance.end_time.to_s)
+				end
+			end
+		end
 	end
 
 	def send_message (token, message)
