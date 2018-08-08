@@ -14,7 +14,7 @@
                         <% @notifies.each do |n| %>
                             <tr>
                                 <td>
-                                    <%= n.created_at  %>
+                                    <%= n.created_at.strftime("%F %T")  %>
                                 </td>
                                 <td>
                                     <%= n.message  %>

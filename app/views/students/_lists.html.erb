@@ -39,7 +39,7 @@
                                     <%= student.grade  %>
                                 </td>
                                 <td>
-                                    <%= student.updated_at.to_s(:db)  %>
+                                    <%= student.updated_at.strftime("%F %T")  %>
                                 </td>
 
                                 <td>
