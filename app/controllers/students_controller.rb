@@ -27,16 +27,24 @@ class StudentsController < ApplicationController
 	end	
 
 	def new
-	  @student = Student.new
+		@student = Student.new
+		@student.afts_id = Student.get_next_afts_id
 		@courses = Course.all
 		2.times { @student.contacts.build }
 	end
 
 	def create
-		@student = Student.new(student_params)
+		puts current_user.id
+		tmp_student_params = student_params
+		if (Student.get_next_afts_id != tmp_student_params[:afts_id])
+			flash[:error] = '學號格式有誤'
+			redirect_to action: "new"	
+			return
+		end
+		@student = Student.new(tmp_student_params)
 	  # @user = User.new(:email => 'test@example.com', :password => 'password', :password_confirmation => 'password', :name => params[:user][:name])
 
-	  # @student.user = @user
+		@student.user_id = current_user.id
 	  if(@student.save)
 		  flash[:notice] = '新增學生成功'
 		  redirect_to action: "new"	
@@ -89,6 +97,6 @@ class StudentsController < ApplicationController
 	private
 
 	def student_params
-		params.require(:student).permit(:afts_id, :card_id, :school, :grade, :name, :course_ids => [], :contacts_attributes => [:id, :name, :phone, :notify_demand, :line_token])
+		params.require(:student).permit(:afts_id, :card_id, :school, :grade, :name, :birthday, :course_ids => [], :contacts_attributes => [:id, :name, :phone, :notify_demand, :line_token])
 	end	
 end

@@ -29,6 +29,19 @@ class AttendancesController < ApplicationController
 		end	
 		redirect_to new_attendance_path
 	end 	
+
+	def create_by_zkteco
+		card_id = params[:card_id]
+		@student = Student.find_by(card_id: card_id)
+		if(@student)
+			if (check(@student))
+			
+			end
+		else
+		    flash[:error]  = "此卡號無法識別"
+		end	
+	end 
+
 	def check(student)
 		@attendance_by_student = Attendance.getAttendance(student)
 		if (@attendance_by_student.size > 0)
