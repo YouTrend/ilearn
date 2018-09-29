@@ -1,5 +1,5 @@
 class NotifiesController < ApplicationController
-
+  before_action :authenticate_user!
   require 'carrierwave'
   require 'carrierwave/orm/activerecord'
 

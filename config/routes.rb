@@ -33,7 +33,11 @@ Rails.application.routes.draw do
   end
 
   resources :events
-  resources :attendances
+  resources :attendances do
+    collection do
+      post :create_by_zkteco
+    end
+  end
 
   resources :notifies
 

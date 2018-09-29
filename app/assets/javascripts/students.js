@@ -3,16 +3,19 @@
 
 function addStudent() {
     $('form').submit();
-    jdats = $("form").serializeArray();
+    var student_id_val = $("form").find("#student_afts_id").val();
+    var student_name_val = $("form").find("#student_name").val();
+    var jdata = {userid:student_id_val,name:student_name_val};
     $.ajax({
-    type: "POST",
-    //async為false -> 同步 
-    //async為true  -> 非同步
-    async: false,   
-    dataType: "json",
-    url: "http://localhost:7574/User",
-    contentType: 'application/json; charset=UTF-8',
-    data: objectifyForm(jdats) 
+      method: "POST",
+      url: "http://localhost:7574/User",
+      data: jdata,
+      dataType: 'json',
+      accept: {
+          json: 'application/json'
+      },
+      async: true,
+
     });
 
     return false;

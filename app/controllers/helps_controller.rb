@@ -1,2 +1,3 @@
 class HelpsController < ApplicationController
+    before_action :authenticate_user!
 end

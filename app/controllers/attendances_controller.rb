@@ -1,4 +1,6 @@
 class AttendancesController < ApplicationController
+	before_action :authenticate_user!, :except => [:create_by_zkteco]
+    protect_from_forgery :except => [:create_by_zkteco]
 	require 'oauth2'
 	require 'net/http'
 	require 'openssl'
@@ -31,15 +33,17 @@ class AttendancesController < ApplicationController
 	end 	
 
 	def create_by_zkteco
+		result_value = ""
 		card_id = params[:card_id]
 		@student = Student.find_by(card_id: card_id)
 		if(@student)
 			if (check(@student))
-			
+				result_value = "ok"
 			end
 		else
-		    flash[:error]  = "此卡號無法識別"
+			result_value = "fail"
 		end	
+		render :json => {:result => result_value}
 	end 
 
 	def check(student)
