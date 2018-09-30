@@ -17,8 +17,8 @@ class Student < ApplicationRecord
 
 	def self.get_next_afts_id()
 		now = Time.now
-		serial_date = now.year.to_s + sprintf('%02i', now.mon) + sprintf('%02i', now.day)
-		serial_no = "001"
+		serial_date = (now.year-1911).to_s + sprintf('%02i', now.mon) + sprintf('%02i', now.day)
+		serial_no = "01"
 		last_student = Student.order("created_at").last
 		if (last_student.nil?)
 			return serial_date + serial_no

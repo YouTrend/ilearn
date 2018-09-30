@@ -7,7 +7,7 @@
         </div>    
         <div class="form-group">
           <%= f.label :afts_id, "系統學號" %>
-          <%= f.text_field :afts_id, :readonly => true, class: "form-control"  %>
+          <%= f.text_field :afts_id, :readonly => true, class: "form-control", :maxlength=>"9"  %>
         </div>
         <div class="form-group">
           <%= f.label :card_id, "學生卡號" %>
@@ -24,6 +24,18 @@
         <div class="form-group">
           <%= f.label :birthday, "生日" %>
           <%= f.date_field :birthday, class: "form-control"  %>
+        </div>         
+        <div class="form-group">
+          <%= f.label :identity_code, "身份證字號" %>
+          <%= f.text_field :identity_code, class: "form-control"  %>
+        </div>            
+        <div class="form-group">
+          <%= f.label :address, "住址" %>
+          <%= f.text_field :address, class: "form-control"  %>
+        </div>         
+        <div class="form-group">
+          <%= f.label :remark, "備註" %>
+          <%= f.text_field :remark, class: "form-control"  %>
         </div>         
         <div class="form-group">
           <%= f.label :courses, "就讀班級" %>

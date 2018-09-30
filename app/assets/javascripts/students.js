@@ -3,22 +3,26 @@
 
 function addStudent() {
     $('form').submit();
-    var student_id_val = $("form").find("#student_afts_id").val();
-    var student_name_val = $("form").find("#student_name").val();
-    var jdata = {userid:student_id_val,name:student_name_val};
-    $.ajax({
-      method: "POST",
-      url: "http://localhost:7574/User",
-      data: jdata,
-      dataType: 'json',
-      accept: {
-          json: 'application/json'
-      },
-      async: true,
+    addStudent_to_zkteco();
+}
 
-    });
+function addStudent_to_zkteco() {
+  var student_id_val = $("form").find("#student_afts_id").val();
+  var student_name_val = $("form").find("#student_name").val();
+  var jdata = {userid:student_id_val,name:student_name_val};
+  $.ajax({
+    method: "POST",
+    url: "http://localhost:7574/User",
+    data: jdata,
+    dataType: 'json',
+    accept: {
+        json: 'application/json'
+    },
+    async: true,
 
-    return false;
+  });
+
+  return false;
 }
 
 function objectifyForm(formArray) {//serialize data function

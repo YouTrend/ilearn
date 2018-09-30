@@ -34,8 +34,8 @@ class AttendancesController < ApplicationController
 
 	def create_by_zkteco
 		result_value = ""
-		card_id = params[:card_id]
-		@student = Student.find_by(card_id: card_id)
+		afts_id = params[:card_id]
+		@student = Student.find_by(afts_id: afts_id)
 		if(@student)
 			if (check(@student))
 				result_value = "ok"
