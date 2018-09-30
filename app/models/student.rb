@@ -24,8 +24,8 @@ class Student < ApplicationRecord
 			return serial_date + serial_no
 		end
 		last_afts_id = last_student.afts_id
-		if (serial_date == last_afts_id[0..7])
-			serial_no = sprintf('%03i',last_afts_id[8..10].to_i + 1)
+		if (serial_date == last_afts_id[0..6])
+			serial_no = sprintf('%02i',last_afts_id[7..8].to_i + 1)
 		end
 		serial_date + serial_no
 	end
