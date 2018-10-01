@@ -1,5 +1,4 @@
 class OauthController < ApplicationController
-	before_action :authenticate_user!
     protect_from_forgery :except => [:callback]
 
 	require 'oauth2'
