@@ -54,23 +54,26 @@
             <%= c.label :name, "聯絡人姓名" %>
             <%= c.text_field :name, class: "form-control"  %>
           </div>             
-
           <div class="form-group">
             <%= c.label :phone, "聯絡人電話" %>
             <%= c.text_field :phone, class: "form-control"  %>
+          </div>        
+          <div class="form-group">
+            <%= c.label :phone2, "聯絡人電話二" %>
+            <%= c.text_field :phone2, class: "form-control"  %>
+          </div>        
+          <div class="form-group">
+            <%= c.label :phone3, "聯絡人手機" %>
+            <%= c.text_field :phone3, class: "form-control"  %>
           </div>  
           <div class="form-group">
             <%= c.label :line_token, "ＬＩＮＥ權杖" %>
             <%= c.text_field :line_token, class: "form-control"  %>
           </div> 
-          <div class="form-group">
-                    
+          <div class="form-check">
             <%= c.label :notify_demand, "ＬＩＮＥ通知" %>
-            <div class="checkbox">
-              <label></label>
-              <%= c.check_box :notify_demand  %>
-            </div>  
-          </div> 
+            <%= c.check_box :notify_demand%>
+          </div>
         <% end %>  
       </div>
     </div>

@@ -50,7 +50,7 @@ class AttendancesController < ApplicationController
 		@attendance_by_student = Attendance.getAttendance(student)
 		if (@attendance_by_student.size > 0)
 			@lastAttendance = @attendance_by_student.first
-			if((Time.now - @lastAttendance.start_time) / 60 > 10)
+			if((Time.now - @lastAttendance.start_time) / 60 > 1)
 				if (@lastAttendance.end_time.nil? and (Date.today - @lastAttendance.start_time.to_date).to_i < 1)
 					setFinishClass(student,@lastAttendance)
 				else

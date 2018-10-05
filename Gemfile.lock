@@ -1,3 +1,14 @@
+GIT
+  remote: https://github.com/randym/axlsx.git
+  revision: c8ac844572b25fda358cc01d2104720c4c42f450
+  ref: c8ac844
+  specs:
+    axlsx (2.1.0.pre)
+      htmlentities (~> 4.3.4)
+      mimemagic (~> 0.3)
+      nokogiri (>= 1.6.6)
+      rubyzip (>= 1.2.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -36,6 +47,7 @@ GEM
       activemodel (= 5.1.6)
       activesupport (= 5.1.6)
       arel (~> 8.0)
+    activerecord-reset-pk-sequence (0.2.1)
     activesupport (5.1.6)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
@@ -44,6 +56,9 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
+    axlsx_rails (0.5.2)
+      actionpack (>= 3.1)
+      axlsx (>= 2.0.1)
     bcrypt (3.1.11)
     bindex (0.5.0)
     bootstrap-modal-rails (2.2.5)
@@ -80,6 +95,8 @@ GEM
       warden (~> 1.2.3)
     erubi (1.7.1)
     execjs (2.7.0)
+    faker (1.9.1)
+      i18n (>= 0.7)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.23)
@@ -87,6 +104,7 @@ GEM
       railties (>= 3.2, < 6.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    htmlentities (4.3.4)
     httparty (0.16.2)
       multi_xml (>= 0.5.2)
     i18n (1.0.1)
@@ -188,6 +206,9 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    roo (2.7.1)
+      nokogiri (~> 1)
+      rubyzip (~> 1.1, < 2.0.0)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
     sass (3.5.6)
@@ -247,6 +268,9 @@ PLATFORMS
 
 DEPENDENCIES
   active_link_to
+  activerecord-reset-pk-sequence
+  axlsx!
+  axlsx_rails
   bootstrap-modal-rails
   bootstrap3-datetimepicker-rails (~> 4.17.47)
   bootstrap_sb_admin_base_v2
@@ -254,6 +278,7 @@ DEPENDENCIES
   capybara (~> 2.13)
   carrierwave
   devise
+  faker
   font-awesome-rails
   httparty
   jbuilder (~> 2.5)
@@ -270,6 +295,8 @@ DEPENDENCIES
   rails (~> 5.1.4)
   rails-i18n
   rails_temporary_data
+  roo
+  rubyzip
   sass-rails (~> 5.0)
   selenium-webdriver
   simple_calendar (~> 2.0)

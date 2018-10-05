@@ -1,0 +1,57 @@
+
+<p id="notice"><%= notice %></p>
+
+<h1>Items</h1>
+<%=
+  link_to 'Download as Excel',
+  items_path(format: :xlsx)
+%>
+
+<table>
+  <thead>
+    <tr>																					
+      <th>序號</th>																				
+      <th>姓名</th>
+      <th>學生卡號(悠遊卡)</th>
+      <th>打卡機系統號</th>
+      <th>就讀學校</th>
+      <th>年級</th>
+      <th>身份證號</th>
+      <th>生日</th>
+      <th>住址</th>
+      <th>聯絡人姓名</th>
+      <th>聯絡人電話一</th>
+      <th>聯絡人電話二</th>
+      <th>聯絡人電話三</th>
+      <th>備註</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= item.id %></td>
+        <td><%= item.name %></td>
+        <td><%= item.card_id %></td>
+        <td><%= item.afts_id %></td>
+        <td><%= item.school %></td>
+        <td><%= item.grade %></td>
+        <td><%= item.identity_code %></td>
+        <td><%= item.birthday %></td>
+        <td><%= item.address %></td>
+        <td><%= item.contact_name %></td>
+        <td><%= item.contact_phone %></td>
+        <td><%= item.contact_phone2 %></td>
+        <td><%= item.contact_phone3 %></td>
+        <td><%= item.remark %></td>
+        <td><%= link_to 'Show', item %></td>
+        <td><%= link_to 'Edit', edit_item_path(item) %></td>
+        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'insert_student', item, method: :update %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Item', new_item_path %>

@@ -33,6 +33,13 @@ class StudentsController < ApplicationController
 		2.times { @student.contacts.build }
 	end
 
+
+	def self.new_by_item
+		@student = Student.new
+		2.times { @student.contacts.build }
+		@student
+	end
+
 	def create
 		puts current_user.id
 		tmp_student_params = student_params

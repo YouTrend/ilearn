@@ -60,6 +60,12 @@ gem "oauth2"
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'multipart-post'
+gem 'roo'
+gem 'faker'
+gem 'rubyzip'
+gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
+gem 'axlsx_rails'
+gem 'activerecord-reset-pk-sequence'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

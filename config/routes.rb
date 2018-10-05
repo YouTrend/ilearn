@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'items_imports/new'
+
+  get 'items_imports/create'
+
   devise_for :users
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -53,5 +57,9 @@ Rails.application.routes.draw do
   namespace :helps do
     get :index
   end
+
+  resources :items
+  resources :items_imports, only: [:new, :create]
+
   root "home#index"
 end
