@@ -63,7 +63,8 @@ $(document).on("turbolinks:load", function() {
         $.ajax(url)
             .done(function(json) {
                 debugger 
-                window.location.href = "students/" + json[0].id + "/edit";
+
+                window.location.href = window.location.origin + "/students/" + json[0].id + "/edit";
 
             })
             .fail(function(jqxhr, textStatus, error) {
