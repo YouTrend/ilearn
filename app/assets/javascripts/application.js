@@ -32,3 +32,44 @@ $(document).on("turbolinks:load", function() {
 
 
 });
+
+$('#input_index_autocomplete').on('keyup', function() {
+    var input = $(this);
+    if(input.val().length === 0) {
+        input.addClass('input-text-search-empty');
+    } else {
+        input.removeClass('input-text-search-empty');
+    }
+});
+
+$(document).on("turbolinks:load", function() {
+    $("#input_index_autocomplete").autocomplete({
+        source: "/students/search_auto_complete"
+    }).keypress(function(e) {
+
+        code = (e.keyCode ? e.keyCode : e.which);
+
+        if (code == 13)
+            index_to_search()
+
+    });
+
+
+    $("#button_search_index").click(index_to_search);
+
+    function index_to_search() {
+        var url = "/students/search.json?name=" + $("#input_index_autocomplete").val();
+
+        $.ajax(url)
+            .done(function(json) {
+                debugger 
+                window.location.href = "students/" + json[0].id + "/edit";
+
+            })
+            .fail(function(jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+                console.log("Request Failed: " + err);
+            });
+    }
+
+});

@@ -32,4 +32,4 @@ function objectifyForm(formArray) {//serialize data function
       returnArray[formArray[i]['name']] = formArray[i]['value'];
     }
     return returnArray;
-  }
+}
