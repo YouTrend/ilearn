@@ -91,7 +91,7 @@
                             </div>
                             <div class="panel-body" style="margin-bottom: 20px;">
                                 <% events.each do |event| %>
-                                    <%= link_to new_courses_event_path(@course), remote: true, class:"btn btn-block btn-social btn-vk start-end-time" do %>
+                                    <%= link_to new_courses_event_path(@courses), remote: true, class:"btn btn-block btn-social btn-vk start-end-time" do %>
                                         </i>
                                         <%= event.name%>
                                             <br/>
