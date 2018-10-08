@@ -42,6 +42,16 @@ $(document).on("turbolinks:load", function() {
 
     $("#new_event #buttonAdd").click(function() {
 
+        if($addEventModal.find("#datetimepicker").data('date').trim() == ""){
+            alert("時間不得為空");
+            return false;
+        }
+        
+        if($addEventModal.find("#datetimepicker2").data('date').trim() == ""){
+            alert("時間不得為空");
+            return false;
+        }  
+
         debugger
         $addEventModal.find("[name='event[name]']").val($("#course_name").val());
         $(this).closest("form").submit();
