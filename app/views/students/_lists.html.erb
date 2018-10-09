@@ -1,4 +1,4 @@
-<div class="panel-body">
+<div>
     <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
         <div class="row">
             <div class="col-sm-6">
@@ -24,7 +24,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% @students.each do |student| %>
+                        <% students.each do |student| %>
                             <tr>
                                 <td>
                                     <%= link_to student.name, edit_student_path(student) %>
@@ -63,7 +63,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
-                    <%= paginate @students%>
+                    <%= paginate students%>
                 </div>
             </div>
         </div>
