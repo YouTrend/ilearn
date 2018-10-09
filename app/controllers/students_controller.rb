@@ -2,7 +2,7 @@ class StudentsController < ApplicationController
 	before_action :authenticate_user!	
 
 	def index
-      @students = Student.studying
+      @students = Student.studying.page(params[:page]).per(1000)
       @destroy_courses_flag = true
 	end
 
