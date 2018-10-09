@@ -75,7 +75,8 @@ class AttendancesController < ApplicationController
 		if (!contacts.nil?)
 			contacts.each do |c|
 				if (c.notify_demand and (!c.line_token.nil? and !c.line_token.empty?))
-					send_message(c.line_token, c.name + "您好：您的愛子" + student.name + "已經打卡囉！於" + @attendance.start_time.strftime("%F %T"))
+					# send_message(c.line_token, c.name + "您好：您的愛子" + student.name + "已經打卡囉！於" + @attendance.start_time.strftime("%F %T"))
+					send_message(c.line_token, "親愛的家長您好：您的愛子" + student.name + "已經打卡囉！於" + @attendance.start_time.strftime("%F %T"))
 				end
 			end
 		end
@@ -89,7 +90,8 @@ class AttendancesController < ApplicationController
 		if (!contacts.nil?)
 			contacts.each do |c|
 				if (c.notify_demand and (!c.line_token.nil? and !c.line_token.empty?))
-					send_message(c.line_token, c.name + "您好：您的愛子" + student.name + "已經打卡囉！於" + attendance.end_time.strftime("%F %T"))
+					# send_message(c.line_token, c.name + "您好：您的愛子" + student.name + "已經打卡囉！於" + attendance.end_time.strftime("%F %T"))
+					send_message(c.line_token, "親愛的家長您好：您的愛子" + student.name + "已經打卡囉！於" + attendance.end_time.strftime("%F %T"))
 				end
 			end
 		end
