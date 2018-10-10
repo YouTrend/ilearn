@@ -6,9 +6,9 @@ class Student < ApplicationRecord
 	has_many :contacts
 	accepts_nested_attributes_for :contacts, allow_destroy: true
 
-	scope :studying, -> { joins(:course_students).distinct }
+	scope :studying, -> { joins(:course_students).distinct.order(afts_id: :asc) }
 	#scope :studying, -> { includes(:course_students).where.not(course_students:{course_id:nil})}
-	scope :others, -> { includes(:course_students).where(course_students:{course_id:nil}) }
+	scope :others, -> { includes(:course_students).where(course_students:{course_id:nil}).order(afts_id: :asc) }
 
 	def self.term_for(prefix)
 		suggestions = where("name like ?", "%#{prefix}%")
