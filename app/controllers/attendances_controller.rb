@@ -14,7 +14,7 @@ class AttendancesController < ApplicationController
 	CALLBACK      = File.join($liensettings["callback"], "oauth/callback")
 	def new
 		@attendance = Attendance.new
-		@attendance_top10 = Attendance.order("id desc").limit(10)
+		@attendance_top10 = Attendance.order("id desc").limit(200)
 	end
 
 	def create 
