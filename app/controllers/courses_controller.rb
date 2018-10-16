@@ -43,7 +43,8 @@ class CoursesController < ApplicationController
 
 	def update
 	  @course = Course.find(params[:id])
-
+		@course.name = course_params[:name]
+		@course.description = course_params[:description]
 	  students = []
 
 		if (!params["students"].nil?)
@@ -70,7 +71,7 @@ class CoursesController < ApplicationController
 	
 
 	def create
-	  @course = Course.new(course_params)
+		@course = Course.new(course_params)
 
 	  students = []
 		if (!params["students"].nil?)
