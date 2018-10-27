@@ -20,6 +20,9 @@
 //= require bootstrap-modalmanager
 //= require moment
 //= require bootstrap-datetimepicker
+//= require fullcalendar
+//= require fullcalendar/locale-all
+//= require bootstrap-colorselector
 
 
 //= require common
@@ -28,10 +31,7 @@
 //= require_tree .
 
 
-$(document).on("turbolinks:load", function() {
-
-
-});
+$(document).on("turbolinks:load", function() {});
 
 $('#input_index_autocomplete').on('keyup', function() {
     var input = $(this);

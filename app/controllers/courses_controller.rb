@@ -35,6 +35,7 @@ class CoursesController < ApplicationController
 	  @students = @course.students.page(params[:page]).per(20)	  
 	end		
 
+
 	def edit
 	  @course = Course.find(params[:id])
 	  @students = @course.students

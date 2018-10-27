@@ -46,13 +46,5 @@
                                         </table>               
             </div>           
         </div>
-        <%= form_for @event, url: courses_events_path(course_id: @course.id) do |f| %>
-            <%= f.hidden_field  :start_time, type: "hidden"  %>
-                <%= f.hidden_field  :end_time, type: "hidden"  %>
-                    <div class="panel-footer">
-                        <button id="buttonAdd" type="submit" class="btn btn-success">確定</button>
-                        <!-- <button id="buttonCancel" type="button" class="btn btn-warning">取消</button> -->
-                    </div>
-                    <% end %>
     </div>
 </div>

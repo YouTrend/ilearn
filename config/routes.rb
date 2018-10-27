@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'teachers/index'
+
   get 'items_imports/new'
 
   get 'items_imports/create'
@@ -8,17 +10,14 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+
   resources :courses do     
-    
+      resources :events, :controller => "courses_events" do
+      post :destroy
+      end
+
   end
 
-  namespace :courses do
-  	resources :events do 
-      collection do
-        post :temp
-      end
-    end
-  end
 
   resources :departments
 

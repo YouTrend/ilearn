@@ -1,81 +1,165 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-$(document).on("turbolinks:load", function() {
+var calendarOptions = {
+    header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month'
+      },
+      selectable: true,
+      selectHelper: true,
+      editable: true,
+      eventLimit: true,
+      events: {
+        url: window.location.href + '/events',
+        type: 'GET',
+        error: function() {
+          alert('there was an error while fetching events!');
+        },
+      },
+      //events: '/courses/show_events.json',
+      locale: 'zh-tw',
+      views: {
+        month: { // name of view
+          titleFormat: 'YYYY-MM'
+          // other view-specific options here
+        }
+      },
+      displayEventEnd:true,
+      themeSystem: 'bootstrap3',
+      select: function(start, end) {
+        //$.getScript('/events/new', function() {
+        //    $('.start_date').val(moment(start).format('YYYY-MM-DD'));
+        //});
+        
+        $('#addEventModal').find("#buttonAdd").bind("click")
+        $('#addEventModal').find('.start_date').val(moment(start).format('YYYY-MM-DD'));
+        $('#addEventModal').modal('show');
+        setSelectColor(1,'#FF0000','red');
+        calendar.fullCalendar('unselect');
+      },
 
+      eventDrop: function(event, delta, revertFunc) {
+        event_data = { 
+          event: {
+            id: event.id,
+            start_time: event.start.format(),
+            end_time: event.end.format(),
+            color: event.color,
+          }
+        };
+        $.ajax({
+            url: event.update_url,
+            data: event_data,
+            type: 'PATCH'
+        });
+      },
+      eventClick: function(event, jsEvent, view) {
+        debugger
+        var data = event;
+        //先以第一次載入資料作修改,getJSON可取得最新資料
+        //$.getJSON(event.edit_url, function( data ) {
+          //var form_action = $('#updateEventModal').find("#new_event").attr("action") + "/" + event.id;
+          //$('#updateEventModal').find("#new_event").attr("action", form_action);
+          $('#updateEventModal').find("#buttonAdd").bind("click")
+          $('#updateEventModal').find('.start_date').val(moment(data.start).format("YYYY-MM-DD"))
+          $('#updateEventModal').find("#datetimepicker").datetimepicker('date', data.start);
+          $('#updateEventModal').find("#datetimepicker2").datetimepicker('date', data.end);
+          $('#updateEventModal').find("#colorselector").colorselector("setColor", data.color);
+          $('#updateEventModal').find("#event_id").val(data.id);
+          $('#updateEventModal').find("form")[0].action = event.update_url
+          $('#updateEventModal').modal('show');
+        //});
+      }
+  };
+var initialize_calendar;
+initialize_calendar = function() {
+  $('.calendar').each(function(){
+    debugger
+    var calendar = $(this);
+    calendar.empty();
+    calendar.fullCalendar(calendarOptions);
     var $addEventModal = $("#addEventModal");
-    $addEventModal.find("#datetimepicker, #datetimepicker2").datetimepicker({
+    var $updateEventModal = $("#updateEventModal");
+    setEventModal($addEventModal);
+    setEventModal($updateEventModal);
+  })
+};
+function setSelectColor(value, color, title) {
+    $("#colorValue").val(value);
+    $("#colorColor").val(color);
+    $("#colorTitle").val(title);
+}
+
+
+$(document).on("turbolinks:load", function() {
+    initialize_calendar();
+});
+function resetEventModal(modal) {
+
+}
+function setEventModal(modal) {
+    var $modal = modal
+    $modal.find(".dropdown-colorselector").remove();
+    $modal.find("#colorselector").colorselector({
+        callback: function (value, color, title) {
+          setSelectColor(value, color, title)
+      }
+    });
+    $modal.find("#datetimepicker, #datetimepicker2").datetimepicker({
         format: 'HH:mm',
     });
-
-
-    $(".ourses_new a, #courses_edit .day .panel-footer a").click(function() {
-
+    $modal.find("#buttonAdd").click(function(e) {
         debugger
-        clear();
-
-        var self = this;
-        var selectedDate = moment($(this).parent().parent().find(".panel-heading").text().trim());
-
-        $addEventModal.modal();
-
-        $addEventModal.find("#buttonAdd").click(function() {
-
-            var start_time = (function() {
-                var dt_string = selectedDate.format("YYYY/MM/DD") + " " + moment($addEventModal.find("#datetimepicker").data('date'), "HH:mm").format("HH:mm");
-
-                return moment(dt_string).format("YYYY/MM/DD HH:mm")
-            })();
-            var end_time = (function() {
-                var dt_string = selectedDate.format("YYYY/MM/DD") + " " + moment($addEventModal.find("#datetimepicker2").data('date'), "HH:mm").format("HH:mm");
-
-                return moment(dt_string).format("YYYY/MM/DD HH:mm")
-            })();
-
-            $addEventModal.find("#event_start_time").val(start_time);
-            $addEventModal.find("#event_end_time").val(end_time);
-
-        });
-
-
-    });
-
-    $("#new_event #buttonAdd").click(function() {
-
-        if($addEventModal.find("#datetimepicker").data('date').trim() == ""){
+        var start = $modal.find("#datetimepicker").data('date') != undefined ? $modal.find("#datetimepicker").data('date') : "";
+        var end = $modal.find("#datetimepicker2").data('date') != undefined ? $modal.find("#datetimepicker2").data('date') : "";
+        if(start.trim() == "" || end.trim() == ""){
             alert("時間不得為空");
             return false;
         }
-        
-        if($addEventModal.find("#datetimepicker2").data('date').trim() == ""){
-            alert("時間不得為空");
-            return false;
-        }  
-
-        debugger
-        $addEventModal.find("[name='event[name]']").val($("#course_name").val());
+    
+        var selectedDate = moment($modal.find(".start_date")[0].value);
+        var start_time = (function() {
+            var dt_string = selectedDate.format("YYYY/MM/DD") + " " + moment($modal.find("#datetimepicker").data('date'), "HH:mm").format("HH:mm");
+    
+            return moment(dt_string).format("YYYY/MM/DD HH:mm")
+        })();
+        var end_time = (function() {
+            var dt_string = selectedDate.format("YYYY/MM/DD") + " " + moment($modal.find("#datetimepicker2").data('date'), "HH:mm").format("HH:mm");
+    
+            return moment(dt_string).format("YYYY/MM/DD HH:mm")
+        })();
+        var color = $("#colorColor").val()
+        $modal.find("#event_start_time").val(start_time);
+        $modal.find("#event_end_time").val(end_time);
+        $modal.find("#event_color").val(color);
+    
+        $modal.find("[name='event[name]']").val($("#course_name").val());
         $(this).closest("form").submit();
-    })
-
-
-
-    $("#courses_new .day .start-end-time").click(function() {
+        $modal.modal("hide");
+    
+    });
+    
+    $modal.find("#buttonCancel").click(function() {
+        $modal.modal("hide");
         clear();
-
-        $addEventModal.modal();
     });
 
-    $addEventModal.find("#buttonCancel").click(function() {
-
-        $addEventModal.modal("hide");
-        $addEventModal.find("#buttonAdd").unbind("click")
+    $modal.find("#buttonDestory").click(function() {
+        debugger
+        $modal.find("form")[0].action += "/destroy"
+        $(this).closest("form").submit();
+        $modal.modal("hide");
     });
-
+    
+    
     function clear() {
-        $addEventModal.find("#datetimepicker").data('DateTimePicker').clear();
-        $addEventModal.find("#datetimepicker2").data('DateTimePicker').clear();
+        $modal.find("#datetimepicker").data('DateTimePicker').clear();
+        $modal.find("#datetimepicker2").data('DateTimePicker').clear();
     }
-});
+}
+
 
 $(document).on("turbolinks:load", function() {
     $("#input_students_autocomplete").autocomplete({
