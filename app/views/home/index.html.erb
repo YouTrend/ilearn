@@ -84,24 +84,7 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <%= month_calendar events: @events do |date, events| %>
-                        <div class="panel panel-default" style="background-color: initial; position: relative; min-height: 100%;">
-                            <div class="panel-heading" style="text-align: center;">
-                                <%= date %>
-                            </div>
-                            <div class="panel-body" style="margin-bottom: 20px;">
-                                <% events.each do |event| %>
-                                    <%= link_to new_courses_event_path(@course), remote: true, class:"btn btn-block btn-social btn-vk start-end-time" do %>
-                                        </i>
-                                        <%= event.name%>
-                                            <br/>
-                                            <%= event.start_time.strftime("%R")%> -
-                                                <%= event.end_time.strftime("%R") %>
-                                                    <% end %>
-                                                        <% end %>
-                            </div>
-                        </div>
-                        <% end %>
+                   <div class="calendar_home"></div>
                 </div>
             </div>
         </div>

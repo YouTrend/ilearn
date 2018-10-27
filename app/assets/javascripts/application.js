@@ -33,15 +33,6 @@
 
 $(document).on("turbolinks:load", function() {});
 
-// $('#input_index_autocomplete').on('keyup', function() {
-//     var input = $(this);
-//     if(input.val().length === 0) {
-//         input.addClass('input-text-search-empty');
-//     } else {
-//         input.removeClass('input-text-search-empty');
-//     }
-// });
-
 $(document).on("turbolinks:load", function() {
     $("#input_index_autocomplete").autocomplete({
         source: "/students/search_auto_complete2",
