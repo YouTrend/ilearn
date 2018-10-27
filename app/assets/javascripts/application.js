@@ -20,6 +20,9 @@
 //= require bootstrap-modalmanager
 //= require moment
 //= require bootstrap-datetimepicker
+//= require fullcalendar
+//= require fullcalendar/locale-all
+//= require bootstrap-colorselector
 
 
 //= require common
@@ -28,49 +31,61 @@
 //= require_tree .
 
 
-$(document).on("turbolinks:load", function() {
+$(document).on("turbolinks:load", function() {});
 
-
-});
-
-$('#input_index_autocomplete').on('keyup', function() {
-    var input = $(this);
-    if(input.val().length === 0) {
-        input.addClass('input-text-search-empty');
-    } else {
-        input.removeClass('input-text-search-empty');
-    }
-});
+// $('#input_index_autocomplete').on('keyup', function() {
+//     var input = $(this);
+//     if(input.val().length === 0) {
+//         input.addClass('input-text-search-empty');
+//     } else {
+//         input.removeClass('input-text-search-empty');
+//     }
+// });
 
 $(document).on("turbolinks:load", function() {
     $("#input_index_autocomplete").autocomplete({
-        source: "/students/search_auto_complete"
-    }).keypress(function(e) {
+        source: "/students/search_auto_complete2",
+        select: function( event, ui ) {
+            to_student_page(ui.item.value);
+        }
+    })
+    // .keypress(function(e) {
 
-        code = (e.keyCode ? e.keyCode : e.which);
+    //     code = (e.keyCode ? e.keyCode : e.which);
 
-        if (code == 13)
-            index_to_search()
+    //     if (code == 13)
+    //         student_search($("#input_index_autocomplete").val())
 
-    });
+    // });
 
 
-    $("#button_search_index").click(index_to_search);
+    // $("#button_search_index").click(function(){
 
-    function index_to_search() {
-        var url = "/students/search.json?name=" + $("#input_index_autocomplete").val();
+    //     student_search($("#input_index_autocomplete").val())
+    // });
 
-        $.ajax(url)
-            .done(function(json) {
-                debugger 
+    // function student_search(name) {
+    //     debugger
+    //     var url = "/students/search.json?name=" + name;
 
-                window.location.href = window.location.origin + "/students/" + json[0].id + "/edit";
+    //     $.ajax(url)
+    //         .done(function(json) {
+    //             debugger 
+    //             if(json.length > 0)
+    //                 to_student_page(json[0].id)
 
-            })
-            .fail(function(jqxhr, textStatus, error) {
-                var err = textStatus + ", " + error;
-                console.log("Request Failed: " + err);
-            });
+    //         })
+    //         .fail(function(jqxhr, textStatus, error) {
+    //             var err = textStatus + ", " + error;
+    //             console.log("Request Failed: " + err);
+    //         });
+    // }
+
+    function to_student_page(id) {
+        debugger
+        window.location.href = window.location.origin + "/students/" + id + "/edit";
+
+
     }
 
 });

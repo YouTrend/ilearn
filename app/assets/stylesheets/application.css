@@ -18,6 +18,8 @@
  *= require bootstrap-modal-bs3patch
  *= require bootstrap-modal
  *= require bootstrap-datetimepicker
+ *= require fullcalendar
+ *= require bootstrap-colorselector
  *= require_tree .
  */
 
@@ -35,4 +37,8 @@
     font-weight: normal;
     text-decoration: inherit;
 
+}
+
+.ui-autocomplete {
+    z-index: 10000 !important;
 }
