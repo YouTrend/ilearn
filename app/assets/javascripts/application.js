@@ -37,6 +37,7 @@ $(document).on("turbolinks:load", function() {
     $("#input_index_autocomplete").autocomplete({
         source: "/students/search_auto_complete2",
         select: function( event, ui ) {
+            debugger
             to_student_page(ui.item.value);
         }
     })

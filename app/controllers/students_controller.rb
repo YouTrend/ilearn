@@ -12,7 +12,7 @@ class StudentsController < ApplicationController
 
 
 	def search_auto_complete2
-			render json: Student.term_for(params[:term])
+			@students = Student.term_for(params[:term])
 	end
 
 	def search

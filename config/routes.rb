@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   	collection do
   		get :others
       get :search_auto_complete
+      get :search_auto_complete2
       get :search
   	end
   	

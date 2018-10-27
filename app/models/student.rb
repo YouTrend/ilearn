@@ -12,7 +12,6 @@ class Student < ApplicationRecord
 
 	def self.term_for(prefix)
 		suggestions = where("name like ?", "%#{prefix}%")
-		suggestions.limit(10).pluck(:name)
 	end
 
 	def self.get_next_afts_id()
