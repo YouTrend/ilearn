@@ -33,6 +33,7 @@ initialize_calendar_home = function() {
       themeSystem: 'bootstrap3',
       eventClick: function(event, jsEvent, view) {
         window.location.href = event.url;
+        return false
       }
     });
   })
