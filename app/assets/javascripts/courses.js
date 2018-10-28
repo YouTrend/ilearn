@@ -8,7 +8,7 @@ initialize_calendar = function() {
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'month'
+            right: 'month,basicWeek'
           },
           selectable: true,
           selectHelper: true,

@@ -10,7 +10,7 @@ initialize_calendar_home = function() {
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month'
+        right: 'month,basicWeek'
       },
       selectable: true,
       selectHelper: true,
@@ -32,7 +32,7 @@ initialize_calendar_home = function() {
       displayEventEnd:true,
       themeSystem: 'bootstrap3',
       eventClick: function(event, jsEvent, view) {
-        debugger
+        window.location.href = event.url;
       }
     });
   })
