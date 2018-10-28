@@ -7,7 +7,12 @@ class StudentsController < ApplicationController
 	end
 
 	def search_auto_complete
-      render json: Student.term_for(params[:term])
+			render json: Student.term_for(params[:term]).limit(10).pluck(:name)
+	end
+
+
+	def search_auto_complete2
+			@students = Student.term_for(params[:term])
 	end
 
 	def search
