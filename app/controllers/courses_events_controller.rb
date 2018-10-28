@@ -13,7 +13,7 @@ class CoursesEventsController < ApplicationController
 		  flash[:error] = @event.errors.full_messages  
 	  end	
 
-	  redirect_to course_path(params[:course_id])
+	  #redirect_to course_path(params[:course_id])
 
 	end	
 
@@ -57,27 +57,25 @@ class CoursesEventsController < ApplicationController
 	    @event = Event.find(params[:id])
 		respond_to do |format|
 		  format.html {render template: "courses/events/edit.json.jbuilder"}
-		  end
+		end
 	end
 
 	def index
-	  @course = Course.find(params[:course_id])
-	  @events = Event.where(course_id: @course.id)
-	  respond_to do |format|
-		format.html {render template: "courses/events/index.json.jbuilder"}
-  	  end
+		@course = Course.find(params[:course_id])
+		@events = Event.where(course_id: @course.id)
+		respond_to do |format|
+			format.html {render template: "courses/events/index.json.jbuilder"}
+		end
 	end
 
 	def update
 		@event = Event.find(params[:id])
 		@event.update(event_params)
-		redirect_to course_path(@event.course_id)
 	end
 
 	def destroy
 		@event = Event.find(params[:event_id])
 		@event.destroy
-		redirect_to course_path(@event.course_id)
 	end
 
 	private

@@ -1,24 +1,23 @@
-<div class="modal fade" id="updateEventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-actiontype="edit" >
-    <%= form_for @event do |f| %>
-        <div class="panel-info">
-            <div class="panel-heading">
-                請選擇上課時間
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>         
-            </div>
-            <div class="panel-body" style="min-height: 300px">
-                <%= render 'event_form', event: @event %>
-            </div>
-            <%= f.hidden_field  :start_time, type: "hidden"  %>
-            <%= f.hidden_field  :end_time, type: "hidden"  %>
-            <%= f.hidden_field  :color, type: "hidden"  %>
-            <%= f.hidden_field  :id, type: "hidden"  %>
-            <div class="panel-footer">
-                <button id="buttonAdd" type="button" class="btn btn-success">確定</button>
-                <button id="buttonCancel" type="button" class="btn btn-warning">取消</button>
-                <button id="buttonDestory" type="button" class="btn btn-danger">移除</button>
-            </div>
+<div class="modal fade" id="updateEventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="panel-info">
+        <div class="panel-heading">
+            請選擇上課時間
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>         
         </div>
-    <% end %>
+        <div class="panel-body" style="min-height: 300px">
+            <%= render 'event', event: @event %>
+        </div>
+        <input type="hidden" name="event[start_time]" id="event_start_time">
+        <input type="hidden" name="event[end_time]" id="event_end_time">
+        <input type="hidden" name="event[color]" id="event_color">
+        <input type="hidden" name="event[id]" id="event_id">
+        <input type="hidden" name="event[update_url]" id="event_update_url">
+        <div class="panel-footer">
+            <button id="buttonAdd" type="button" class="btn btn-success">確定</button>
+            <button id="buttonCancel" type="button" class="btn btn-warning">取消</button>
+            <button id="buttonDestory" type="button" class="btn btn-danger">移除</button>
+        </div>
+    </div>
 </div>

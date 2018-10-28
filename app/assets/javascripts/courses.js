@@ -1,90 +1,89 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
-
-var calendarOptions = {
-    header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month'
-      },
-      selectable: true,
-      selectHelper: true,
-      editable: true,
-      eventLimit: true,
-      events: {
-        url: window.location.href + '/events',
-        type: 'GET',
-        error: function() {
-          alert('there was an error while fetching events!');
-        },
-      },
-      //events: '/courses/show_events.json',
-      locale: 'zh-tw',
-      views: {
-        month: { // name of view
-          titleFormat: 'YYYY-MM'
-          // other view-specific options here
-        }
-      },
-      displayEventEnd:true,
-      themeSystem: 'bootstrap3',
-      select: function(start, end) {
-        //$.getScript('/events/new', function() {
-        //    $('.start_date').val(moment(start).format('YYYY-MM-DD'));
-        //});
-        
-        $('#addEventModal').find("#buttonAdd").bind("click")
-        $('#addEventModal').find('.start_date').val(moment(start).format('YYYY-MM-DD'));
-        $('#addEventModal').modal('show');
-        setSelectColor(1,'#FF0000','red');
-        calendar.fullCalendar('unselect');
-      },
-
-      eventDrop: function(event, delta, revertFunc) {
-        event_data = { 
-          event: {
-            id: event.id,
-            start_time: event.start.format(),
-            end_time: event.end.format(),
-            color: event.color,
-          }
-        };
-        $.ajax({
-            url: event.update_url,
-            data: event_data,
-            type: 'PATCH'
-        });
-      },
-      eventClick: function(event, jsEvent, view) {
-        debugger
-        var data = event;
-        //先以第一次載入資料作修改,getJSON可取得最新資料
-        //$.getJSON(event.edit_url, function( data ) {
-          //var form_action = $('#updateEventModal').find("#new_event").attr("action") + "/" + event.id;
-          //$('#updateEventModal').find("#new_event").attr("action", form_action);
-          $('#updateEventModal').find("#buttonAdd").bind("click")
-          $('#updateEventModal').find('.start_date').val(moment(data.start).format("YYYY-MM-DD"))
-          $('#updateEventModal').find("#datetimepicker").datetimepicker('date', data.start);
-          $('#updateEventModal').find("#datetimepicker2").datetimepicker('date', data.end);
-          $('#updateEventModal').find("#colorselector").colorselector("setColor", data.color);
-          $('#updateEventModal').find("#event_id").val(data.id);
-          $('#updateEventModal').find("form")[0].action = event.update_url
-          $('#updateEventModal').modal('show');
-        //});
-      }
-  };
 var initialize_calendar;
 initialize_calendar = function() {
-  $('.calendar').each(function(){
-    debugger
-    var calendar = $(this);
+    var calendar = $('#calendar')
     calendar.empty();
-    calendar.fullCalendar(calendarOptions);
+    calendar.fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month'
+          },
+          selectable: true,
+          selectHelper: true,
+          editable: true,
+          eventLimit: true,
+          events: {
+            url: window.location.href + '/events',
+            type: 'GET',
+            error: function() {
+              alert('there was an error while fetching events!');
+            },
+          },
+          //events: '/courses/show_events.json',
+          locale: 'zh-tw',
+          views: {
+            month: { // name of view
+              titleFormat: 'YYYY-MM'
+              // other view-specific options here
+            }
+          },
+          displayEventEnd:true,
+          themeSystem: 'bootstrap3',
+          select: function(start, end) {
+            //$.getScript('/events/new', function() {
+            //    $('.start_date').val(moment(start).format('YYYY-MM-DD'));
+            //});
+            
+            clear($('#addEventModal'));
+            $('#addEventModal').find("#buttonAdd").bind("click")
+            $('#addEventModal').find('.start_date').val(moment(start).format('YYYY-MM-DD'));
+            $('#addEventModal').modal('show');
+            $('#addEventModal').find("#colorselector").colorselector("setColor", '#FF0000');
+            calendar.fullCalendar('unselect');
+          },
+    
+          eventDrop: function(event, delta, revertFunc) {
+            event_data = { 
+              event: {
+                id: event.id,
+                start_time: event.start.format(),
+                end_time: event.end.format(),
+                color: event.color,
+              }
+            };
+            $.ajax({
+                url: event.update_url,
+                data: event_data,
+                type: 'PATCH',
+                success: function(response) {
+                    var calendar = $('#calendar')
+                    calendar.fullCalendar('refetchEvents');
+                }
+            });
+          },
+          eventClick: function(event, jsEvent, view) {
+            var data = event;
+            //先以第一次載入資料作修改,getJSON可取得最新資料
+            //$.getJSON(event.edit_url, function( data ) {
+              //var form_action = $('#updateEventModal').find("#new_event").attr("action") + "/" + event.id;
+              //$('#updateEventModal').find("#new_event").attr("action", form_action);
+              $('#updateEventModal').find("#buttonAdd").bind("click")
+              $('#updateEventModal').find('.start_date').val(moment(data.start).format("YYYY-MM-DD"))
+              $('#updateEventModal').find("#datetimepicker").datetimepicker('date', data.start);
+              $('#updateEventModal').find("#datetimepicker2").datetimepicker('date', data.end);
+              $('#updateEventModal').find("#colorselector").colorselector("setColor", data.color);
+              $('#updateEventModal').find("#event_id").val(data.id);
+              $('#updateEventModal').find("#event_update_url").val(data.update_url);
+              $('#updateEventModal').modal('show');
+            //});
+          }
+    });
     var $addEventModal = $("#addEventModal");
     var $updateEventModal = $("#updateEventModal");
-    setEventModal($addEventModal);
-    setEventModal($updateEventModal);
-  })
+    setEventModal($addEventModal, 'add');
+    setEventModal($updateEventModal, 'update');
 };
 function setSelectColor(value, color, title) {
     $("#colorValue").val(value);
@@ -96,10 +95,8 @@ function setSelectColor(value, color, title) {
 $(document).on("turbolinks:load", function() {
     initialize_calendar();
 });
-function resetEventModal(modal) {
 
-}
-function setEventModal(modal) {
+function setEventModal(modal,action) {
     var $modal = modal
     $modal.find(".dropdown-colorselector").remove();
     $modal.find("#colorselector").colorselector({
@@ -134,30 +131,64 @@ function setEventModal(modal) {
         $modal.find("#event_start_time").val(start_time);
         $modal.find("#event_end_time").val(end_time);
         $modal.find("#event_color").val(color);
-    
-        $modal.find("[name='event[name]']").val($("#course_name").val());
-        $(this).closest("form").submit();
+
+        var event_id;
+        var event_update_url;
+        if (action == "update") {
+            event_id = $modal.find("#event_id").val();
+            event_update_url = $modal.find("#event_update_url").val();
+        }
+        event_data = { 
+            event: {
+                start_time: start_time,
+                end_time: end_time,
+                color: color,
+            }
+        };
+        
+        $.ajax({
+            url: action == "update" ? event_update_url : window.location.href + '/events',
+            data: event_data,
+            type: action == "update" ? 'PATCH' : 'POST',
+            success: function(response) {
+                var calendar = $('#calendar')
+                debugger
+                //calendar.fullCalendar({ refetchResourcesOnNavigate: true,resources: window.location.href + '/events'})
+                //calendar.fullCalendar('removeEvents');
+                calendar.fullCalendar('refetchEvents');
+            }
+        });
         $modal.modal("hide");
     
     });
     
     $modal.find("#buttonCancel").click(function() {
         $modal.modal("hide");
-        clear();
+        clear($modal);
     });
 
     $modal.find("#buttonDestory").click(function() {
-        debugger
-        $modal.find("form")[0].action += "/destroy"
-        $(this).closest("form").submit();
+        var event_update_url;
+        event_update_url = $modal.find("#event_update_url").val();
+        $.ajax({
+            url: event_update_url + '/destroy',
+            type: 'POST',
+            success: function(response) {
+                var calendar = $('#calendar')
+                calendar.fullCalendar('refetchEvents');
+            }
+        });
         $modal.modal("hide");
     });
     
     
-    function clear() {
-        $modal.find("#datetimepicker").data('DateTimePicker').clear();
-        $modal.find("#datetimepicker2").data('DateTimePicker').clear();
-    }
+}
+
+function clear(modal) {
+    modal.find("#colorselector").colorselector("setColor", '#FF0000');
+    modal.find("#datetimepicker").data('DateTimePicker').clear();
+    modal.find("#datetimepicker2").data('DateTimePicker').clear();
+    modal.find("#datetimepicker2").data('DateTimePicker').clear();
 }
 
 
